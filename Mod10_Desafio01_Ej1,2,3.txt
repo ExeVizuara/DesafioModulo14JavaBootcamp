@@ -1,0 +1,28 @@
+USE Bonus_Track;
+
+ #EJERCICIO 1:
+SELECT Artista, Titulo, Genero FROM Top_Spotify;
+SELECT Artista, Titulo, Genero FROM Top_Spotify ORDER BY Genero;
+SELECT Artista, Titulo, Genero FROM Top_Spotify ORDER BY Genero, Artista;
+
+#EJERCICIO 2:
+SELECT Artista, Titulo, Genero FROM Top_Spotify ORDER BY Artista, Titulo LIMIT 10;
+SELECT Artista, Titulo, Genero FROM Top_Spotify ORDER BY Artista, Titulo LIMIT 5 OFFSET 10;
+SELECT * FROM Top_Spotify WHERE Artista = 'Madonna';
+SELECT * FROM Top_Spotify WHERE Genero = 'Pop' ORDER BY Titulo;
+SELECT * FROM Top_Spotify WHERE Genero = 'Pop' AND Ano = 2015 ORDER BY Artista, Titulo;
+SELECT * FROM Top_Spotify WHERE Ano < 2011 AND Genero = 'Dance Pop' ORDER BY Titulo;
+
+SELECT * FROM Autores;
+#EJERCICIO 3:
+USE Libreria;
+SELECT * FROM Autores WHERE Ciudad = 'Buenos Aires';
+SELECT * FROM Libros WHERE Precio > 30 ORDER BY Precio DESC;
+SELECT * FROM Autores WHERE Ciudad <> 'BA' ORDER BY Provincia;
+SELECT * FROM Libros WHERE Categoria = 'Cuentos' AND Precio < 20 ORDER BY Titulo; 
+SELECT * FROM Libros WHERE Categoria = 'Novelas' OR Categoria = 'Ensayos' ORDER BY Titulo;
+SELECT * FROM Libros WHERE Precio BETWEEN 20 AND 35 ORDER BY Precio;
+SELECT * FROM Autores WHERE Nombre IN('Jorge Luis', 'Victoria', 'Ernesto', 'Adolfo') ORDER BY Nombre;
+SELECT * FROM Libros WHERE Titulo LIKE '%Mundo%' ORDER BY Titulo;
+SELECT * FROM Libros WHERE Titulo  LIKE '$ de %' ORDER BY Titulo; 
+SELECT * FROM Libros WHERE Precio IS NULL ORDER BY Titulo;
