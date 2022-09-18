@@ -1,0 +1,30 @@
+USE Bonus_Track;
+
+#EJERCICIO 1:
+SELECT CONCAT(Artista, ' - ', Titulo) Cancion, Genero FROM Top_Spotify ORDER BY Cancion;
+SELECT CONCAT_WS(' - ' , Artista, Titulo) Cancion, Genero FROM Top_Spotify ORDER BY Cancion;
+SELECT CONCAT_WS(' - ' , Artista, Titulo) Cancion, UPPER(Genero) Genero FROM Top_Spotify ORDER BY Cancion;
+SELECT CONCAT_WS(' - ', Artista, Titulo) Cancion, UPPER(Genero) Genero, YEAR(CURDATE()) - ANO Años 
+FROM Top_Spotify ORDER BY Cancion;
+SELECT COUNT(*) Canciones FROM Top_Spotify;
+SELECT ANO, COUNT(*) Canciones FROM Top_Spotify GROUP BY ANO;
+SELECT ANO, COUNT(*) Canciones FROM Top_Spotify GROUP BY ANO HAVING Canciones >= 50;
+
+#EJERCICIO 2:
+SELECT CONCAT(Apellido, ', ', Nombre) Autor, Provincia FROM Autores ORDER BY Autor;
+SELECT CONCAT_WS(', ', Apellido, Nombre) Autor, Provincia FROM Autores ORDER BY Autor;
+SELECT CONCAT_WS(', ', Apellido, UPPER(Nombre)) Autor, Provincia FROM Autores ORDER BY Autor;
+SELECT UPPER(CONCAT(Apellido, ', ', LEFT(Nombre, 1), '.')) Autor, Provincia FROM Autores ORDER BY Autor;
+SELECT CONCAT(Apellido, ', ', Nombre) EMPLEADO, YEAR(Fecha_Ingreso) AS Ingreso 
+FROM Empleados ORDER BY Ingreso DESC;
+
+#EJERCICIO 3:
+SELECT CONCAT(Apellido, ', ', Nombre) EMPLEADO, YEAR(Fecha_Ingreso) AS Ingreso, 
+TIMESTAMPDIFF(YEAR, Fecha_Ingreso, CURDATE()) AS Antigüedad FROM Empleados ORDER BY Ingreso DESC;
+SELECT MIN(Precio) 'Menor Precio' FROM Libros;
+SELECT MIN(Precio) 'Menor Precio', MAX(Precio) 'Mayor Precio' FROM Libros;
+SELECT MIN(Precio) 'Menor Precio', MAX(Precio) 'Mayor Precio', ROUND(AVG(Precio), 2) AS 'Precio Promedio' FROM Libros;
+SELECT Categoria, MIN(Precio) 'Menor Precio', MAX(Precio) 'Mayor Precio', ROUND(AVG(Precio), 2) AS 'Precio Promedio' 
+FROM Libros GROUP BY Categoria;
+SELECT Categoria, MIN(Precio) 'Menor Precio', MAX(Precio) 'Mayor Precio', ROUND(AVG(Precio), 2) AS 'Precio Promedio' 
+FROM Libros GROUP BY Categoria HAVING Categoria <> 'Sin Asignar';
