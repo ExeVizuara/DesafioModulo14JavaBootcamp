@@ -1,0 +1,32 @@
+#EJERCICIO 1:
+USE Bonus_Track;
+
+SET SQL_SAFE_UPDATES = 0;
+UPDATE Top_Spotify SET Titulo = UPPER(Titulo), Artista = UPPER(Artista);
+ALTER TABLE Top_Spotify ADD Permanencia INT;
+UPDATE Top_Spotify SET Permanencia = YEAR(CURDATE()) - Ano;
+CREATE TABLE Ultimos_Lanzamientos SELECT * FROM Top_Spotify WHERE Permanencia <= 3;
+DELETE FROM Top_Spotify WHERE Permanencia <= 3;
+INSERT INTO Top_Spotify VALUES
+(610, 'God Control', 'Madonna', 'Pop', 2018, 3);
+INSERT INTO Ultimos_Lanzamientos (ID, Titulo, Artista, Genero, Ano, Permanencia)
+SELECT ID, Titulo, Artista, Genero, Ano, Permanencia FROM Top_Spotify WHERE Permanencia <= 3;
+DELETE FROM Top_Spotify WHERE Permanencia <= 3;
+
+#EJERCICIO 2:
+USE Libreria;
+
+SELECT * FROM Libros;
+
+UPDATE Autores SET Nombre = 'Esteban' WHERE Apellido = 'ECHEVERRÍA';
+ALTER TABLE Empleados ADD Permanencia INT;
+UPDATE Empleados SET Permanencia = TIMESTAMPDIFF(YEAR, Fecha_Ingreso, CURDATE());
+ALTER TABLE Libros ADD Precio_Publico FLOAT;
+UPDATE Libros SET Precio_Publico = ROUND(Precio * 2.21, 2);
+
+#EJERCICIO 3:
+CREATE TABLE Empleados_Anteriores SELECT * FROM Empleados WHERE Apellido IN ('Thomas', 'Pereira', 'Devo');
+DELETE FROM Empleados WHERE Apellido IN ('Thomas', 'Pereira', 'Devo');
+INSERT INTO Empleados_Anteriores (Empleado_ID, Nombre, Apellido, Puesto_ID, Editorial_ID, Fecha_Ingreso, Permanencia)
+SELECT Empleado_ID, Nombre, Apellido, Puesto_id, Editorial_ID, Fecha_Ingreso, Permanencia FROM Empleados WHERE Apellido = 'Cruz';
+DELETE FROM Empleados WHERE Apellido IN ('Thomas', 'Pereira', 'Devo');
