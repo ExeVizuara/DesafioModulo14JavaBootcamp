@@ -1,5 +1,6 @@
 #EJERCICIO 1:
 SET SQL_SAFE_UPDATES = 0;
+
 USE Bonus_Track;
 
 SELECT Artista, Titulo FROM Ultimos_Lanzamientos
