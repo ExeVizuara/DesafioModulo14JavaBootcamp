@@ -1,0 +1,36 @@
+#EJERCICIO 1:
+SET SQL_SAFE_UPDATES = 0;
+USE Bonus_Track;
+
+SELECT Artista, Titulo FROM Ultimos_Lanzamientos
+WHERE Ano = (SELECT MAX(Ano) FROM Ultimos_Lanzamientos) ORDER BY Artista, Titulo;
+SELECT Titulo FROM Top_Spotify WHERE Permanencia = (SELECT MAX(Permanencia) 
+FROM Top_Spotify) AND Artista = 'Lady Gaga' ORDER BY Titulo;
+SELECT Titulo, Artista, CASE
+WHEN Genero LIKE '%Pop%' THEN 'Pop'
+WHEN Genero LIKE '%Electro%' OR Genero LIKE '%House%' THEN 'Electronica'
+ELSE 'Otro' END AS Tipo FROM Top_Spotify ORDER BY Artista, Titulo;
+
+#EJERCICIO 2:
+SELECT *, 'Anterior' AS Estado FROM Top_Spotify WHERE Titulo LIKE '%Break%' UNION
+SELECT *, 'Ultimo' AS Estado FROM Ultimos_Lanzamientos WHERE TITULO LIKE '%Break%' ORDER BY TITULO;
+
+#EJERCICIO 3:
+USE Libreria;
+
+SELECT * FROM Libros WHERE Precio > (SELECT AVG(Precio) FROM Libros) ORDER BY Titulo;
+SELECT * FROM Libros WHERE Categoria = 'Novelas' AND Precio > (SELECT MAX(Precio) FROM Libros
+WHERE Categoria = 'Ensayos') ORDER BY Precio DESC;
+SELECT * FROM Empleados WHERE Permanencia = (SELECT MAX(Permanencia) FROM Empleados);
+SELECT * FROM Empleados WHERE Puesto_ID = (SELECT MAX(Puesto_ID) FROM Empleados);
+SELECT Libro_ID, Titulo, Categoria, Precio_Publico, 
+CASE WHEN Precio_Publico < 15 THEN 'Economico'
+WHEN Precio_Publico <= 30 THEN 'Regular'
+ELSE 'Deluxe' END AS Tipo FROM Libros WHERE Precio_Publico IS NOT NULL ORDER BY Titulo;
+SELECT CONCAT(Apellido, ', ', Nombre) Empleado FROM Empleados WHERE Puesto_ID = 9 UNION
+SELECT CONCAT(Apellido, ', ', Nombre) FROM Empleados_Anteriores WHERE Puesto_ID = 9 ORDER BY EMPLEADO;
+SELECT V.Libro_ID, Titulo, Precio_Publico, Local_ID, Factura_Nro, Cantidad 
+FROM Libros L, Ventas V WHERE L.Libro_ID = V.Libro_ID ORDER BY L.Titulo;
+SELECT V.Libro_ID, Titulo, Precio_Publico, Local_ID, Factura_Nro, Cantidad, ROUND(Precio_Publico * Cantidad, 2) AS Total
+FROM Libros L, Ventas V WHERE L.Libro_ID = V.Libro_ID ORDER BY L.Titulo;
+SELECT L.Titulo FROM Libros L LEFT JOIN Ventas V ON L.Libro_ID = V.Libro_ID WHERE Factura_Nro IS NULL ORDER BY Titulo;
